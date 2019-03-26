@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content=" Nginx随记">
+
+
+
+
+  <meta name="keywords" content="编程, 后端, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2017/11/23/Nginx随记/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title>  Nginx随记 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+           Nginx随记
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-11-23
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx-conf配置"><span class="toc-text">nginx.conf配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用指令"><span class="toc-text">常用指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx-conf结构图"><span class="toc-text">nginx.conf结构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-的server块"><span class="toc-text">http 的server块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置反向代理服务器"><span class="toc-text">配置反向代理服务器</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Nginx，nginx，一天到晚的听到后端的同学在讲这个词，感觉不去了解一下自己都有点说不过去了，所以今天还是抽了点空去了解了一下，顺便总结一下加深一下记忆。</p>
+<p>什么是Nginx，这个我就不说了，不知道的同学只要记住它是一个<strong>轻量级的服务器</strong>就行了。那有什么用呢？现在主要用的就两方面：反向代理和均衡负载。</p>
+<p>那怎么学习它呢？如果不算怎么安装它，其实剩下的就只有怎么配置它了，更准确的说是怎么编写<strong>nginx.conf</strong>这个文件。至于怎么安装，这边就不介绍了。<br><a id="more"></a></p>
+<h2 id="nginx-conf配置"><a href="#nginx-conf配置" class="headerlink" title="nginx.conf配置"></a>nginx.conf配置</h2><h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nginx #开启</span><br><span class="line">nginx -s reload #重新加载nginx.conf</span><br><span class="line">nginx -s stop   #关闭nginx</span><br></pre></td></tr></table></figure>
+<h3 id="nginx-conf结构图"><a href="#nginx-conf结构图" class="headerlink" title="nginx.conf结构图"></a>nginx.conf结构图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">events &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http </span><br><span class="line">&#123;</span><br><span class="line">    server </span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">        location [PATTERN]&#123;</span><br><span class="line">          ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="http-的server块"><a href="#http-的server块" class="headerlink" title="http 的server块"></a>http 的server块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">   listen  80;</span><br><span class="line">   server_name loc.hxkuan.com;</span><br><span class="line"></span><br><span class="line">   location /images &#123;</span><br><span class="line">        root /Users/macmini/hxkuan_file/assets/;</span><br><span class="line">        index  1.png;</span><br><span class="line">   &#125;</span><br><span class="line">   error_page 404   /icon.png;</span><br><span class="line"></span><br><span class="line">   location /json &#123;</span><br><span class="line">        root /Users/macmini/hxkuan_file/assets/;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   location /404 &#123;</span><br><span class="line">        return 404;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   location /daily/ &#123;</span><br><span class="line">        proxy_pass  http://agent.daily.heyean.com/;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   location / &#123;</span><br><span class="line">        root /Users/macmini/hxkuan_file/assets/;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong></p>
+<ul>
+<li>一个http可以有n个server块。</li>
+<li>listen 后面可以跟 访问地址、访问地址：端口号、端口号。</li>
+<li>当有多个server的listen相同时，Nginx会匹配server_name指令与请求头部的host字段，host可以使用正则。</li>
+<li>匹配规则，由上往下，先匹配server，再匹配server内部的location</li>
+<li>location的匹配参数最后不要加‘／’，因为加了‘／’之后，最后不加‘／’的url将有可能匹配不到。location的参数可以使用正则。</li>
+<li>访问资源时，真正的路径为：root值+location的参数值（很坑，特别注意）</li>
+<li>proxy_pass 后面不能加https链接（需要怎么挑战https的，暂时未知）。</li>
+<li>error_page 可以有多个，有404，403等等；location中可以使用return跳转到error_page上。</li>
+</ul>
+<h2 id="配置反向代理服务器"><a href="#配置反向代理服务器" class="headerlink" title="配置反向代理服务器"></a>配置反向代理服务器</h2><p>要想配置反向代理，首先要掌握基本配置规范，基本的反向代理配置很简单，但是如果要仔细配置也可以做到很复杂。<br>官网给出反向代理的最简单的代码例子。(<a href="https://www.nginx.com/resources/admin-guide/reverse-proxy/" target="_blank" rel="noopener">https://www.nginx.com/resources/admin-guide/reverse-proxy/</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> location /some/path/ &#123;</span><br><span class="line">    proxy_pass http://www.example.com/link/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是在互联网公司你看到的反向代理配置往往是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">upstream baidunode &#123;</span><br><span class="line">server 172.25.0.105:8081 weight=10 max_fails=3     fail_timeout=30s;</span><br><span class="line">&#125;</span><br><span class="line">location / &#123;</span><br><span class="line">    add_header Cache-Control no-cache;</span><br><span class="line">    proxy_set_header   Host local.baidu.com;</span><br><span class="line">    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">   </span><br><span class="line">    proxy_pass         http://baidunode;</span><br><span class="line">    proxy_connect_timeout 30s;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://www.jianshu.com/p/e98e84a3322f" target="_blank" rel="noopener">具体讲解参考：http://www.jianshu.com/p/e98e84a3322f</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2017/11/23/Nginx随记/">http://www.hxkuan.com/2017/11/23/Nginx随记/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/后端/">后端</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/01/04/react基础-Component生命周期/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">react基础-Component生命周期</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/11/07/设计模式MVC-MVP和MVVM/">
+        <span class="next-text nav-default">设计模式MVC,MVP和MVVM简介</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

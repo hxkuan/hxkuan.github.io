@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="node小工具开发(commander)">
+
+
+
+
+  <meta name="keywords" content="js, npm, 生活, node, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2017/10/13/node小工具开发-commander/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> node小工具开发(commander) - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          node小工具开发(commander)
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-13
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/other/">other</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#土著做法"><span class="toc-text">土著做法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用commander-js"><span class="toc-text">使用commander.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装及使用"><span class="toc-text">安装及使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用API"><span class="toc-text">常用API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法描述"><span class="toc-text">方法描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#version"><span class="toc-text">version</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#description"><span class="toc-text">description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#option"><span class="toc-text">option</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#command"><span class="toc-text">command</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#action"><span class="toc-text">action</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#parse"><span class="toc-text">parse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#outputHelp"><span class="toc-text">outputHelp</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实践"><span class="toc-text">实践</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当下，作为一名js开发，不知道node那是不可原谅的。但很多同学不知道，node当下使用最多的不是后端开发，而是使用工具的开发，尤其是一些命令行程序。<br><a id="more"></a></p>
+<h2 id="土著做法"><a href="#土著做法" class="headerlink" title="土著做法"></a>土著做法</h2><p>当一个Nodejs程序运行时，会有许多存在内存中的全局变量，其中有一个叫做process，意为进程对象。process对象中有一个叫做argv的属性。命令行程序的第一个重头戏就是解析这个process.argv属性。</p>
+<p>我们先随便写一个node程序，把process.argv打印出来看看，<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> node test1.js --name gk</span></span><br><span class="line">[</span><br><span class="line">    '/usr/local/Cellar/node/6.6.0/bin/node',</span><br><span class="line">    '/Users/gejiawen/code/20160921/test1.js',</span><br><span class="line">    '--name',</span><br><span class="line">    'gk'</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>看起来process.argv好像是一个数组，其中第一个元素是node的执行路径，第二个元素是当前执行文件的路径，从第三个元素开始，是执行时带入的参数。</p>
+<p>所以，规律很简单。我们在写命令行程序时，只需要对process.argv这个数组的第三个元素及其之后的参数进行解析即可。</p>
+<p>如果不嫌麻烦，完全可以写出很多判断分支来做。但是现在我们有更好的方法。</p>
+<h2 id="使用commander-js"><a href="#使用commander-js" class="headerlink" title="使用commander.js"></a>使用commander.js</h2><p>commander.js是TJ所写的一个工具包，其作用是让node命令行程序的制作更加简单。</p>
+<h3 id="安装及使用"><a href="#安装及使用" class="headerlink" title="安装及使用"></a>安装及使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install commander</span></span><br></pre></td></tr></table></figure>
+<p>注意包名是commander而不是commander.js。</p>
+<p>然后我们在新建一个js文件，叫做index.js，内容如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var program = require('commander')</span><br><span class="line"></span><br><span class="line">program</span><br><span class="line">    .version('0.0.1')</span><br><span class="line">    .description('a test cli program')</span><br><span class="line">    .option('-n, --name &lt;name&gt;', 'your name', 'GK')</span><br><span class="line">    .option('-a, --age &lt;age&gt;', 'your age', '22')</span><br><span class="line">    .option('-e, --enjoy [enjoy]')</span><br><span class="line"></span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure></p>
+<p>此时，一个简单的命令行程序就完成了。我们通过如下的命令来执行它，<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> node index.js -h</span></span><br></pre></td></tr></table></figure></p>
+<p>结果如下，<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ./<span class="built_in">test</span> -h</span></span><br><span class="line"></span><br><span class="line">  Usage: test [options]</span><br><span class="line"></span><br><span class="line">  a test cli program</span><br><span class="line"></span><br><span class="line">  Options:</span><br><span class="line"></span><br><span class="line">    -h, --help           output usage information</span><br><span class="line">    -V, --version        output the version number</span><br><span class="line">    -n, --name &lt;name&gt;    your name</span><br><span class="line">    -a, --age &lt;age&gt;      your age</span><br><span class="line">    -e, --enjoy [enjoy]</span><br></pre></td></tr></table></figure></p>
+<p>commander.js第一个优势就是提供了简介的api对可选项、参数进行解析。第二个优势就是自动生成帮助的文本信息。</p>
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><p>commander.js中命令行有两种可变性，一个叫做option，意为选项。一个叫做command，意为命令。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//选项</span></span><br><span class="line">program</span><br><span class="line">   .version(<span class="string">'0.0.1'</span>)</span><br><span class="line">   .option(<span class="string">'-C, --chdir &lt;path&gt;'</span>, <span class="string">'change the working directory'</span>)</span><br><span class="line">   .option(<span class="string">'-c, --config &lt;path&gt;'</span>, <span class="string">'set config path. defaults to ./deploy.conf'</span>)</span><br><span class="line">   .option(<span class="string">'-T, --no-tests'</span>, <span class="string">'ignore test hook'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//命令</span></span><br><span class="line"> program</span><br><span class="line">   .command(<span class="string">'name &lt;dir&gt; [otherDirs...]'</span>)</span><br><span class="line">   .description(<span class="string">'run teardown commands'</span>)</span><br><span class="line">   .action(<span class="function"><span class="keyword">function</span>(<span class="params">dir, otherDirs</span>) </span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'dir "%s"'</span>, dir);</span><br><span class="line">     <span class="keyword">if</span> (otherDirs) &#123;</span><br><span class="line">       otherDirs.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">oDir</span>) </span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">'dir "%s"'</span>, oDir);</span><br><span class="line">       &#125;);</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>命令的用法：node *.js [command_name] [dir..]</p>
+<h3 id="方法描述"><a href="#方法描述" class="headerlink" title="方法描述"></a>方法描述</h3><h4 id="version"><a href="#version" class="headerlink" title="version"></a>version</h4><p>用法： .version(‘x.y.z’)</p>
+<h4 id="description"><a href="#description" class="headerlink" title="description"></a>description</h4><p>用法：.description(‘command description’)</p>
+<p>用于设置命令的描述<br>用于设置命令程序的版本号，</p>
+<h4 id="option"><a href="#option" class="headerlink" title="option"></a>option</h4><p>用户：.option(‘-n, –name <name>‘, ‘your name’, ‘GK’)</name></p>
+<ul>
+<li>第一个参数是选项定义，分为短定义和长定义。用|，,， 连接。<br>-参数可以用&lt;&gt;或者[]修饰，前者意为必须参数，后者意为可选参数。</li>
+<li>第二个参数为选项描述</li>
+<li>第三个参数为选项参数默认值，可选。</li>
+</ul>
+<h4 id="command"><a href="#command" class="headerlink" title="command"></a>command</h4><p>用法：.command(‘init <path>‘, ‘description’)</path></p>
+<p>command的用法稍微复杂，原则上他可以接受三个参数，第一个为命令定义，第二个命令描述，第三个为命令辅助修饰对象。</p>
+<ul>
+<li>第一个参数中可以使用&lt;&gt;或者[]修饰命令参数</li>
+<li>第二个参数可选。<ul>
+<li>当没有第二个参数时，commander.js将返回Command对象，若有第二个参数，将返回原型对象。</li>
+<li>当带有第二个参数，并且没有显示调用action(fn)时，则将会使用子命令模式。</li>
+<li>所谓子命令模式即，./pm，./pm-install，./pm-search等。这些子命令跟主命令在不同的文件中。</li>
+</ul>
+</li>
+<li>第三个参数一般不用，它可以设置是否显示的使用子命令模式。</li>
+</ul>
+<h4 id="action"><a href="#action" class="headerlink" title="action"></a>action</h4><p>用法：.action(fn)</p>
+<p>用于设置命令执行的相关回调。fn可以接受命令的参数为函数形参，顺序与command()中定义的顺序一致。</p>
+<h4 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h4><p>用法：program.parse(process.argv)</p>
+<p>此api一般是最后调用，用于解析process.argv。</p>
+<h4 id="outputHelp"><a href="#outputHelp" class="headerlink" title="outputHelp"></a>outputHelp</h4><p>用法：program.outputHelp()</p>
+<p>一般用于未录入参数时自动打印帮助信息。</p>
+<p>eg:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!process.argv.slice(<span class="number">2</span>).length) &#123;</span><br><span class="line">    program.outputHelp(make_red);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">make_red</span>(<span class="params">txt</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> colors.red(txt); <span class="comment">//display the help text in red on the console</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>结下来，我们就来做个简单的命令行小工具，功能是输出 hi,welcome to use me。</p>
+<p>首先我们得创建一个项目，<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir npmrc-local</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> npmrc-local</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> touch .gitignore</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir bin</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir lib</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> touch bin/npmrc.js</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> touch lib/index.js</span></span><br></pre></td></tr></table></figure></p>
+<p>修改package.json文件，添加bin字段，<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"bin"</span>: &#123;</span><br><span class="line">        <span class="attr">"npmrc"</span>: <span class="string">"./bin/npm.js"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>修改bin/npmrc.js,<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'../lib/index'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>修改lib/index.js,<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> program = <span class="built_in">require</span>(<span class="string">'commander'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 program.chdir 就能获得 -C/-chdir 后面的参数。(注意：不能使用program.C)</span></span><br><span class="line">program</span><br><span class="line">  .version(<span class="string">'0.0.1'</span>)</span><br><span class="line">  .option(<span class="string">'-N, --userName &lt;path&gt;'</span>, <span class="string">'input name'</span>);</span><br><span class="line"></span><br><span class="line">program.parse(process.argv);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(program.userName)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hi "%s",welcome to use me'</span>,program.userName);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hi ,welcome to use me'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"my tool finished"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>然后<code>npm link</code>,如此就可以在本地使用了。如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  npmrc-local ✗ npmrc-hx -h</span><br><span class="line"></span><br><span class="line">  Usage: npmrc-hx [options]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  Options:</span><br><span class="line"></span><br><span class="line">    -V, --version          output the version number</span><br><span class="line">    -N, --userName &lt;path&gt;  input name</span><br><span class="line">    -h, --help             output usage information</span><br><span class="line"></span><br><span class="line">➜  npmrc-local ✗ npmrc-hx -N hxkuan</span><br><span class="line">hi "hxkuan",welcome to use me</span><br><span class="line">my tool finished</span><br></pre></td></tr></table></figure>
+<p>当然，你也可以对外发布到npm上面，在这里这方面就不继续开展了。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2017/10/13/node小工具开发-commander/">http://www.hxkuan.com/2017/10/13/node小工具开发-commander/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/js/">js</a>
+            
+              <a href="/tags/npm/">npm</a>
+            
+              <a href="/tags/生活/">生活</a>
+            
+              <a href="/tags/node/">node</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/11/07/设计模式MVC-MVP和MVVM/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">设计模式MVC,MVP和MVVM简介</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/10/10/Markdown基础/">
+        <span class="next-text nav-default">Markdown基础</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

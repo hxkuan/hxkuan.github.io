@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Shell笔记-入门、变量">
+
+
+
+
+  <meta name="keywords" content="编程, 基础, shell, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/05/15/Shell笔记1/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> Shell笔记-入门、变量 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Shell笔记-入门、变量
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-15
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell介绍-简介，变量"><span class="toc-text">Shell介绍-简介，变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hello-world"><span class="toc-text">Hello world</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释"><span class="toc-text">注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出打印"><span class="toc-text">输出打印</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#echo"><span class="toc-text">echo </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#printf-arguments…"><span class="toc-text">printf  [arguments…]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量-常量"><span class="toc-text">变量/常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义-获取变量"><span class="toc-text">定义/获取变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#系统变量"><span class="toc-text">系统变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊变量"><span class="toc-text">特殊变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令替换"><span class="toc-text">命令替换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量替换"><span class="toc-text">变量替换</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>shell 是一种脚本语言，常见的脚本解析器有bash，sh，csh等。shell文件的后缀为<code>.sh</code>。<br>本文主要摘记了Shell的简介，以及Shell的变量。<br><a id="more"></a></p>
+<h1 id="Shell介绍-简介，变量"><a href="#Shell介绍-简介，变量" class="headerlink" title="Shell介绍-简介，变量"></a>Shell介绍-简介，变量</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h3><p>test.sh代码<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"><span class="meta">#</span>------</span><br><span class="line"><span class="meta">#</span>第一个shell程序</span><br><span class="line"><span class="meta">#</span>------</span><br><span class="line"></span><br><span class="line">echo "Hello World"</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>运行方式：terminal是基于shell的，所以直接输入文件地址就可以运行，如：<code>./test.sh</code>。如果想要全局使用，则需将文件的目录配置在$PATH全局变量中，如此使用<code>test.sh</code>即可运行，将文件后缀去除，则运行方式将变为<code>test</code>。</p>
+</blockquote>
+<blockquote>
+<p>开头的<code>#!</code>表示使用什么解析器执行。</p>
+</blockquote>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>以<code>#</code>开头的行就是注释，shell没有多行注释，但块注释习惯使用如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>------</span><br><span class="line"><span class="meta">#</span>快注释</span><br><span class="line"><span class="meta">#</span>------</span><br></pre></td></tr></table></figure></p>
+<h3 id="输出打印"><a href="#输出打印" class="headerlink" title="输出打印"></a>输出打印</h3><p>shell打印输出主要有 <code>echo</code>,<code>printf</code>两个函数。</p>
+<ul>
+<li><h4 id="echo"><a href="#echo" class="headerlink" title="echo "></a>echo <string></string></h4><ul>
+<li>行输出，即输出完后自动换行</li>
+<li>由于shell的特性，<string>可以为<code>&quot;&quot;</code>,<code>&#39;&#39;</code>和<code>不加</code>这三种形式，总的来说，在转义字符方面都存在着不同，建议使用<code>&quot;&quot;</code>形式输出或者定义字符串。</string></li>
+<li>参数<code>-e</code>，表示执行转义字符。echo默认是不执行的。</li>
+</ul>
+</li>
+<li><h4 id="printf-arguments…"><a href="#printf-arguments…" class="headerlink" title="printf  [arguments…]"></a>printf <string> [arguments…]</string></h4><ul>
+<li>以<string>为模版输出</string></li>
+<li>不会自动换行，换行需要加<code>\n</code>，默认执行转义字符</li>
+<li><code>%d</code>,<code>%s</code>替代argument中的值，值的类型需要与<code>%</code>值的类型依次对应；若arguments的值多于<string>中的<code>%</code>值，表示轮回输出arguments</string></li>
+<li>在printf的<string>中<code>&quot;&quot;</code>和<code>&#39;&#39;</code>含义相同，但<code>不加</code>却会使语法混乱，从而无法解析，所以为了统一，建议一直使用<code>&quot;&quot;</code>。</string></li>
+</ul>
+</li>
+</ul>
+<h2 id="变量-常量"><a href="#变量-常量" class="headerlink" title="变量/常量"></a>变量/常量</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
+<li><h4 id="定义-获取变量"><a href="#定义-获取变量" class="headerlink" title="定义/获取变量"></a>定义/获取变量</h4><ol>
+<li><p>定义格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variableName="value"</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特别注意 <strong><code>=</code>前后都不能有空格</strong></p>
+</blockquote>
+<blockquote>
+<p>可以通过<code>readonly variableName</code>将变量设置只读</p>
+</blockquote>
+<blockquote>
+<p>可以通过<code>unset variableName</code>将变量删除，但不能删除只读变量。</p>
+</blockquote>
+</li>
+<li><p>获取方式如下:<code>$variableName</code>或者<code>${variableName}</code></p>
+<blockquote>
+<p>获取变量推荐使用<code>${variableName}</code>方式。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h4 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h4><blockquote>
+<ol>
+<li>自定义环境变量： <code>export NAME=value</code>(环境变量名习惯由大写字母组成)，<br>export也可修改系统环境变量，所以自定义的时候需注意NAME冲突。</li>
+<li>系统环境变量，常用的：<ul>
+<li>EUID：当前用户的UID</li>
+<li>PWD:  当前路径</li>
+<li>PATH:  命令搜索路径</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><h4 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h4><ul>
+<li><p><code>$n</code> </p>
+<blockquote>
+<p>n为数字，命令输入的集合，所以<code>$0</code>存储的是函数名，<code>$1,..$n</code>存储的是对应位置上的参数</p>
+</blockquote>
+</li>
+<li><p><code>$_</code> 表示最后一个参数</p>
+</li>
+<li><code>$#</code> 表示参数个数</li>
+<li><code>$*</code>,<code>$@</code> 表示所有参数的数组，区别当<code>&quot;$*&quot;</code>形式时，其返回一个字符串，且默认返回为一个空字符串，<code>$@</code>则不变。</li>
+<li><code>$?</code> 上个命令的退出状态或者返回值,exit 返回的值，获取打印输出值可以通过<code>命令替换</code>获取</li>
+<li><code>$$</code> 当前Shell进程ID</li>
+</ul>
+</li>
+<li><h4 id="命令替换"><a href="#命令替换" class="headerlink" title="命令替换"></a>命令替换</h4><p>  将指令的输出值赋值给变量，赋值时运行该指令。（同步）</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">variableName=`command`</span><br><span class="line">或者</span><br><span class="line">variableName=$(command)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="变量替换"><a href="#变量替换" class="headerlink" title="变量替换"></a>变量替换</h4><blockquote>
+<p>格式：`${variableName:&lt;替换标示&gt;}</p>
+</blockquote>
+<blockquote>
+<p><strong>替换标示</strong></p>
+<ul>
+<li><code>-word</code> 如果变量为空或被unset，那么返回word，且原来变量不变</li>
+<li><code>=word</code> 同上，但改变原来变量</li>
+<li><code>?word</code> 如果变量为空或被unset，以word为错误message抛出错误</li>
+<li><code>+word</code> 如果变量被定义，那么返回word，且不改变原变量</li>
+</ul>
+<p>注意 word可为字符串，也可以为<code>${变量}</code></p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/05/15/Shell笔记1/">http://www.hxkuan.com/2018/05/15/Shell笔记1/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/shell/">shell</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/20/css基础摘记-选择器/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">CSS基础摘记-选择器</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/05/15/Shell笔记3/">
+        <span class="next-text nav-default">Shell笔记-字符串、数组、函数</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

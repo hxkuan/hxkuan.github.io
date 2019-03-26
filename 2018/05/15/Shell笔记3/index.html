@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Shell笔记-字符串、数组、函数">
+
+
+
+
+  <meta name="keywords" content="编程, 基础, shell, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/05/15/Shell笔记3/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> Shell笔记-字符串、数组、函数 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Shell笔记-字符串、数组、函数
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-15
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell介绍"><span class="toc-text">Shell介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串和数组"><span class="toc-text">字符串和数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用字符串指令"><span class="toc-text">常用字符串指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串长度"><span class="toc-text">字符串长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串截取"><span class="toc-text">字符串截取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#expr"><span class="toc-text">expr</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取"><span class="toc-text">获取</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础"><span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义-1"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用"><span class="toc-text">调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数参数"><span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shell文件的包含-引入"><span class="toc-text">Shell文件的包含(引入)</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>这是最后一篇Shell的笔记了，记录的只是一些基础，用于帮助我们能使用Shell，至于深入，只能靠大量的实践以及对大牛代码的阅读模仿，而我觉得，这些够了。<br><a id="more"></a></p>
+<h1 id="Shell介绍"><a href="#Shell介绍" class="headerlink" title="Shell介绍"></a>Shell介绍</h1><h2 id="字符串和数组"><a href="#字符串和数组" class="headerlink" title="字符串和数组"></a>字符串和数组</h2><h3 id="常用字符串指令"><a href="#常用字符串指令" class="headerlink" title="常用字符串指令"></a>常用字符串指令</h3><ul>
+<li><h4 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">len=$&#123;#variableName&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="字符串截取"><a href="#字符串截取" class="headerlink" title="字符串截取"></a>字符串截取</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"><span class="meta">#</span>$&#123;variableName:&lt;pos&gt; &lt;len&gt;&#125;</span><br><span class="line"></span><br><span class="line">str ="0123456789"</span><br><span class="line">echo $&#123;str:1&#125; #输出：123456789</span><br><span class="line">echo $&#123;str:1:2&#125; #输出：12</span><br><span class="line">echo $&#123;str:-3&#125; #当&lt;pos&gt;开始位置为负数时，自动变为0。输出：0123456789</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="expr"><a href="#expr" class="headerlink" title="expr"></a>expr</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">expr index &lt;string&gt; &lt;chars&gt; #查找&lt;chars&gt;首字母在&lt;string&gt;中出现的位置，没有则返回0。</span><br><span class="line">expr substr &lt;string&gt; &lt;pos&gt; &lt;len&gt; #相当于$&#123;variableName:&lt;pos&gt; &lt;len&gt;&#125;</span><br><span class="line">expr length &lt;string&gt; #相当与$&#123;#variableName&#125;</span><br><span class="line">expr match &lt;string&gt; &lt;regexp&gt; #正则匹配</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p><strong>bash支持一维数组，但不支持多维数组，并且没有限定数组大小</strong></p>
+<ul>
+<li><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrName=(v0 v1 v2 ...)</span><br></pre></td></tr></table></figure>
+<p>  或</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arrName=(</span><br><span class="line">    v0</span><br><span class="line">    v1</span><br><span class="line">    v2</span><br><span class="line">    ..</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>  或者</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arrName[0]=v0</span><br><span class="line">arrName[1]=v1</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;array_name[2]&#125; #读取下标为2的元素</span><br><span class="line">echo $&#123;array_name[*]&#125; #读取所有元素</span><br><span class="line">echo $&#123;array_name[@]&#125; #读取所有元素</span><br><span class="line"></span><br><span class="line">echo $&#123;#array_name[*]&#125; #获取数组长度</span><br><span class="line">echo $&#123;#array_name[@]&#125; #获取数组长度</span><br><span class="line">echo $&#123;#array_name[1]&#125; #获取数组中单个元素的长度</span><br></pre></td></tr></table></figure>
+<p>  输出</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">value2</span><br><span class="line">value0 value1 value2 value3</span><br><span class="line">value0 value1 value2 value3</span><br><span class="line">4</span><br><span class="line">4</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>  格式如下：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function funcName()&#123;</span><br><span class="line">    commands</span><br><span class="line">    [return value]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">funcName [p1 p2 ...]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意</p>
+<ol>
+<li>函数调用时不需要加<code>()</code></li>
+<li>函数没有<code>return</code>时，则将会将最后一条命令运行结果作为返回值</li>
+<li>当<code>return</code> 非整数时，函数只能作为赋值，不能直接运行，否则报<code>return: funcNmae: numeric argument required</code>错误。</li>
+<li>可以使用<code>unset .f funcName</code> 删除函数定义。</li>
+<li>如果你希望直接从终端调用函数，可以将函数定义在主目录下的 .profile 文件中。</li>
+</ol>
+</blockquote>
+</li>
+<li><h4 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h4><p>  Shell参数获取，与其他语言有点不同，它是直接使用<code>${n}</code>来获取。<br>  具体查看<code>变量-特殊变量</code></p>
+</li>
+<li><h4 id="Shell文件的包含-引入"><a href="#Shell文件的包含-引入" class="headerlink" title="Shell文件的包含(引入)"></a>Shell文件的包含(引入)</h4><p>  使用<code>.</code>或者<code>source</code>关键字声明，格式如下：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">. fileName</span><br><span class="line">或</span><br><span class="line">. "fileName"</span><br><span class="line">或者</span><br><span class="line">source fileName</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：不能之间引用目录</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/05/15/Shell笔记3/">http://www.hxkuan.com/2018/05/15/Shell笔记3/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/shell/">shell</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/15/Shell笔记1/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Shell笔记-入门、变量</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/05/15/Shell笔记2/">
+        <span class="next-text nav-default">Shell笔记-运算、条件、循环</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

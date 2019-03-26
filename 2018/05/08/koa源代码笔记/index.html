@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Koa(v2.5.0)源代码阅读笔记">
+
+
+
+
+  <meta name="keywords" content="编程, 基础, 后端, npm, node, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/05/08/koa源代码笔记/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> Koa(v2.5.0)源代码阅读笔记 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Koa(v2.5.0)源代码阅读笔记
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-08
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>从源码上来看，koa确实比express精简了很多。主体的koa包只有application，context，request，response这4个文件，更让我惊喜的是，application整个就是ES6的class。这种亲切感，几乎瞬间就平衡了koa和express在我心中的位置。<br><a id="more"></a><br>从application这个文件的构造函数来看，有proxy，middleware，subdomainOffset，env，context，request ，response 7个属性；<br>以整个application文件来说，proxy，env，subdomainOffset只是全局的设置属性；<br>context，request，response则只是用来以此为模板，分别初始化了ctx的context，request，response对象（因此app.context是不等于ctx.context，从下文可以看出来，所有的用户都是共用一个app对象的，但每个用户都有自己的ctx对象）；<br>而只有middleware才具有具体的操作，这里也就可以明白，为什么说Koa完全是由中间件(middleware)来处理请求，当然application是继承Event类的，也就是说可以通过Event来处理。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.proxy = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">this</span>.middleware = [];</span><br><span class="line"><span class="keyword">this</span>.subdomainOffset = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">this</span>.env = process.env.NODE_ENV || <span class="string">'development'</span>;</span><br><span class="line"><span class="keyword">this</span>.context = <span class="built_in">Object</span>.create(context);</span><br><span class="line"><span class="keyword">this</span>.request = <span class="built_in">Object</span>.create(request);</span><br><span class="line"><span class="keyword">this</span>.response = <span class="built_in">Object</span>.create(response);</span><br></pre></td></tr></table></figure></p>
+<p>整个application文件，其实只有listen()，toJSON()，inspect()，use()，callback()，handleRequest()，createContext()，onerror() 8个public方法，以及一个private方法respond()，而inspect还是toJSON的alias,也就是说，其实就只有7个public方法了。</p>
+<p>如果说，那两个方法是Koa最主要的方法，我想那无疑是use()和listen()了，这两个函数一个是用于添加middleware，一个则是用于创建一个server。从代码上来看，use就三步操作，<br>第一步是判断传入的是否是个function，这里可以看出来，middleware本质其实就是个处理函数，因此也不需要因为高大上的命名而感觉到深奥；<br>第二步则是将传入的middleware generators处理，不得不说我不喜欢generators，而且事实上也证明，以后少用generators，<code>Support for generators will be removed in v3.</code>,这是源代码中的提示，也就是说v3版本将不在支持generators了，可喜可乐；<br>第三步就是将传入的middleware存入到app的middleware数组中，(这里就有个坑，按理说app的应该是middlewares，好吧，查了有道词典，原来根本就没有这个词，估计middleware单复数形式是一样的。)</p>
+<p>对于listen()其实就更简单了，就一步：使用Node http模块创建一个server并listen()。这里要提的是，传入server的回调函数就是app的callback()方法，也就是说，所有的操作其实都是以callback()开始的，从这方面来说，listen()方法只是简化了创建server的流程而比不是唯一的选择，实际上app中并没有https server创建的接口，也就是说Koa官方也是默认用户绕过listen()方法直接使用http/https的createServer()来创建server。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">callback() &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = compose(<span class="keyword">this</span>.middleware);</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.listeners(<span class="string">'error'</span>).length) <span class="keyword">this</span>.on(<span class="string">'error'</span>, <span class="keyword">this</span>.onerror);</span><br><span class="line">  <span class="keyword">const</span> handleRequest = <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ctx = <span class="keyword">this</span>.createContext(req, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.handleRequest(ctx, fn);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> handleRequest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是整个callback()的代码，其实也简单，<br>首先将app的middleware转换为一个执行方法，内部其实就是一个递归函数，在这里可以看出来，上一个middleware中的next其实就是下一个middleware，以此类推，如此形成了“洋葱”结构的回调。(忍不住吐槽一下，js的弱类型很大程度上简单了编码，但作为框架型的编码，弱类型真的不是很实用，至少时不时的得判断一下参数的类型，就够麻烦，不判断又会出大问题)；<br>然后，就是查看是否有error事件，没有就注册一个默认的。Koa中默认必有的事件只有error，这个通过app.eventNames()就能查看详情；<br>最后使用app的createContext()初始化ctx后，就交给了app的handleRequest()处理了。下面讲讲createContext()和app的handleRequest()。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> context = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.context);</span><br><span class="line"><span class="keyword">const</span> request = context.request = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.request);</span><br><span class="line"><span class="keyword">const</span> response = context.response = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.response);</span><br><span class="line">context.app = request.app = response.app = <span class="keyword">this</span>;</span><br><span class="line">context.req = request.req = response.req = req;</span><br><span class="line">context.res = request.res = response.res = res;</span><br><span class="line">request.ctx = response.ctx = context;</span><br><span class="line">request.response = response;</span><br><span class="line">response.request = request;</span><br></pre></td></tr></table></figure>
+<p>这是createContext()的部分代码，一段很有特色的代码。在这，我们可以看出koa的3个对象是真正的做到了你中有我我中有你了，也就是说只要有一个对象，就能从中取得其他的两个，这种无脑的解决方式真的开了眼睛，但不得不说，使用的时候肯定会很方便。</p>
+<p>对于handleRequest(),值的一提的是，其内部调用了两个方法，一个是onFinished()，它对访问的socket进行了处理，从而增加了访问的稳定性；而另一个respond()，则是调用res的end()方法来完结请求，这也算是一种不同吧。这边需要注意的是，如果使用res的end()方法来中止请求，事实上是不会终止middleware后续操作的，也就是说respond()或者onerror()还是会被执行，从这方面可以看出，Koa是不建议我们使用Node的end()接口，否则这点优化还是需要的。<br>而到这里，真个app或者说是真个Koa算是结束了。</p>
+<p>整体下来，收获还是很大的；从Express到Koa，从Koa v1到v2，也算是从复杂到简单，再到如此简单，不得不说还是挺让人感慨的。而更让我感慨的是对于class的使用.<br>从以往的感受中，阅读源码大部分不适应来源于多变的语法结构。比如function中套function，多种多样的js类封装。毕竟对于业务同学来说复杂的函数其实并不常用，虽说，能静下心来研究的人才是高手，但像这种简简单单就能降低学习门槛的事为什么要抵制呢？<br>最后，分享一句话：细节决定成败，这也是我看完Koa后最有感触的一句话。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/05/08/koa源代码笔记/">http://www.hxkuan.com/2018/05/08/koa源代码笔记/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/后端/">后端</a>
+            
+              <a href="/tags/npm/">npm</a>
+            
+              <a href="/tags/node/">node</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/09/感觉在作死/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">感觉在作死</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/04/25/react-native-基础-常用css篇/">
+        <span class="next-text nav-default">react-native 基础-常用css篇</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

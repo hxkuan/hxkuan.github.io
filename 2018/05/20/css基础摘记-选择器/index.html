@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="CSS基础摘记-选择器">
+
+
+
+
+  <meta name="keywords" content="编程, 基础, css, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/05/20/css基础摘记-选择器/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> CSS基础摘记-选择器 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          CSS基础摘记-选择器
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-20
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入CSS"><span class="toc-text">引入CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#外部样式表"><span class="toc-text">外部样式表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部样式表"><span class="toc-text">内部样式表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内联样式"><span class="toc-text">内联样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择器"><span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原选择器"><span class="toc-text">原选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#元素选择器"><span class="toc-text">元素选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#class选择器"><span class="toc-text">class选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#id选择器"><span class="toc-text">id选择器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合选择器"><span class="toc-text">组合选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#属性选择器"><span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组选择器"><span class="toc-text">组选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#派生选择器"><span class="toc-text">派生选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#后代选择器：h1-em"><span class="toc-text">后代选择器：h1 em{}</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#子选择器：-h1-gt-em"><span class="toc-text">子选择器： h1&gt;em{}</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#相邻选择器"><span class="toc-text">相邻选择器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#伪类"><span class="toc-text">伪类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#伪元素"><span class="toc-text">伪元素</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>css由【选择器】和【声明】组成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selector &#123;declaration1; declaration2; ... declarationN &#125;</span><br></pre></td></tr></table></figure></p>
+<p>而【声明】由【属性】和【属性值】组成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selector &#123;property: value; ...&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里，我整理了一下selector部分，相对于庞大的declaration部分，selector的内容其实不多。<br><a id="more"></a></p>
+<h2 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h2><ul>
+<li><h3 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;...&quot; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;..&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><blockquote>
+<p>使用<code>style</code>属性</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>我将选择器分为【原选择器】和【组合选择器】前者可单独使用，而后者不能单独选用，只能与原选择器配合使用。</p>
+<h3 id="原选择器"><a href="#原选择器" class="headerlink" title="原选择器"></a>原选择器</h3><ul>
+<li><h4 id="元素选择器"><a href="#元素选择器" class="headerlink" title="元素选择器"></a>元素选择器</h4><blockquote>
+<p>使用【html元素】作为选择器</p>
+</blockquote>
+</li>
+<li><h4 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h4><blockquote>
+<p>表示作用于对应的class上；使用<code>.</code>声明</p>
+</blockquote>
+</li>
+<li><h4 id="id选择器"><a href="#id选择器" class="headerlink" title="id选择器"></a>id选择器</h4><blockquote>
+<p>表示作用于对应的id上；使用<code>#</code>声明;</p>
+<p>注意<code>#</code>其实是<code>*#</code>的缩写，该选择器的完整写法是<code>selector#idname{}</code>表示匹配selector中id为idname的元素。class选择也同理。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="组合选择器"><a href="#组合选择器" class="headerlink" title="组合选择器"></a>组合选择器</h3><ul>
+<li><h4 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h4><blockquote>
+<p>表示作用于拥有某属性的选择器；格式：<code>a[href][title]{}</code></p>
+</blockquote>
+</li>
+<li><h4 id="组选择器"><a href="#组选择器" class="headerlink" title="组选择器"></a>组选择器</h4><blockquote>
+<p>表示共享【声明】；格式 <code>h1,h2,h3,h4,h5,h6 {}</code></p>
+</blockquote>
+</li>
+<li><h4 id="派生选择器"><a href="#派生选择器" class="headerlink" title="派生选择器"></a>派生选择器</h4><ul>
+<li><h5 id="后代选择器：h1-em"><a href="#后代选择器：h1-em" class="headerlink" title="后代选择器：h1 em{}"></a>后代选择器：<code>h1 em{}</code></h5></li>
+<li><h5 id="子选择器：-h1-gt-em"><a href="#子选择器：-h1-gt-em" class="headerlink" title="子选择器： h1&gt;em{}"></a>子选择器： <code>h1&gt;em{}</code></h5></li>
+<li><h5 id="相邻选择器"><a href="#相邻选择器" class="headerlink" title="相邻选择器"></a>相邻选择器</h5><blockquote>
+<p>表示紧接在另一元素后的元素；<code>h1+h1{}</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h4 id="伪类"><a href="#伪类" class="headerlink" title="伪类"></a>伪类</h4><blockquote>
+<p>作用于标签，常用的有<code>:active,:focus,:hover,:link,.visited,:first-child,:lang</code></p>
+</blockquote>
+</li>
+<li><h4 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h4><blockquote>
+<p>作用于标签中的内容，常用的有<code>:first-letter,:first-line,:before,:after</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
+<li>CSS外表用<code>&lt;link&gt;</code>,内标用<code>&lt;style&gt;</code>,内联用<code>style</code></li>
+<li><code>&#39;.&#39;</code>、<code>&#39;#&#39;</code>、 <code>&#39;,&#39;</code>、 <code>&#39; &#39;</code>、 <code>&#39;&gt;&#39;</code>、 <code>&#39;+&#39;</code>分表表示class，id，组，后代，子代，相邻</li>
+<li>伪类作用于标签，伪元素用于内容，css3中伪类用<code>&#39;:&#39;</code>,伪元素用<code>&#39;::&#39;</code>。</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/05/20/css基础摘记-选择器/">http://www.hxkuan.com/2018/05/20/css基础摘记-选择器/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/css/">css</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/06/06/JavaScript基础-面向对象设计/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">JavaScript基础-面向对象设计</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/05/15/Shell笔记1/">
+        <span class="next-text nav-default">Shell笔记-入门、变量</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

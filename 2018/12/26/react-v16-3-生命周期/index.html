@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="react v16.3+生命周期改动">
+
+
+
+
+  <meta name="keywords" content="基础, js, react, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/12/26/react-v16-3-生命周期/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> react v16.3+生命周期改动 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          react v16.3+生命周期改动
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-26
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、图对比"><span class="toc-text">一、图对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-v16-3"><span class="toc-text">Before v16.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#After-v16-3"><span class="toc-text">After v16.3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、函数解析"><span class="toc-text">二、函数解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#getDerivedStateFromProps-nextProps-prevState"><span class="toc-text">getDerivedStateFromProps(nextProps, prevState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getSnapshotBeforeUpdate-prevProps-prevState"><span class="toc-text">getSnapshotBeforeUpdate(prevProps, prevState)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、备注"><span class="toc-text">三、备注</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>React 官方在 v16.3 版本更新中，除了<code>Context API</code>之外，新引入的两个生命周期函数 <code>getDerivedStateFromProps，getSnapshotBeforeUpdate</code> 以及在未来 <code>v17.0</code> 版本中即将被移除的三个生命周期函数 <code>componentWillMount，componentWillReceiveProps，componentWillUpdate</code>。<br><a id="more"></a><br><strong>注意</strong>：v16.3-V17.0版本中，这两套生命周期不能同时使用，否则会报错“你使用了一个不安全的生命周期”（unsafe）。<a href="/2018/01/04/react基础-Component生命周期/">查看生命周期</a></p>
+<h2 id="一、图对比"><a href="#一、图对比" class="headerlink" title="一、图对比"></a>一、图对比</h2><h3 id="Before-v16-3"><a href="#Before-v16-3" class="headerlink" title="Before v16.3"></a>Before v16.3</h3><p><img src="/images/react-v16.3before_lifecycle.png" alt="before v16.3新生命周期"></p>
+<h3 id="After-v16-3"><a href="#After-v16-3" class="headerlink" title="After v16.3"></a>After v16.3</h3><p><img src="/images/react_v16.3_lifecycle.jpg" alt="after v16.3新生命周期"></p>
+<h2 id="二、函数解析"><a href="#二、函数解析" class="headerlink" title="二、函数解析"></a>二、函数解析</h2><h3 id="getDerivedStateFromProps-nextProps-prevState"><a href="#getDerivedStateFromProps-nextProps-prevState" class="headerlink" title="getDerivedStateFromProps(nextProps, prevState)"></a>getDerivedStateFromProps(nextProps, prevState)</h3><ul>
+<li><p>是一个静态函数，所以也就无法使用<code>this</code>;参数表示<code>之后的Props</code>和<code>之前的State</code>；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">static getDerivedStateFromProps(nextProps, prevState) &#123;</span><br><span class="line">    if (nextProps.isLogin !== prevState.isLogin) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      isLogin: nextProps.isLogin,</span><br><span class="line">      &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每次接收新的props之后都会返回一个对象作为新的state，返回null则说明不需要更新state.</p>
+</li>
+<li><p>配合componentDidUpdate，可以覆盖componentWillReceiveProps的所有用法</p>
+</li>
+</ul>
+<h3 id="getSnapshotBeforeUpdate-prevProps-prevState"><a href="#getSnapshotBeforeUpdate-prevProps-prevState" class="headerlink" title="getSnapshotBeforeUpdate(prevProps, prevState)"></a>getSnapshotBeforeUpdate(prevProps, prevState)</h3><ul>
+<li><p>触发时间: update发生的时候，在render之后，在组件dom渲染之前。</p>
+</li>
+<li><p>返回一个值，作为componentDidUpdate(prevProps, prevState, snapshot)的第三个参数。</p>
+</li>
+<li><p>配合componentDidUpdate, 可以覆盖componentWillUpdate的所有用法。</p>
+</li>
+</ul>
+<h2 id="三、备注"><a href="#三、备注" class="headerlink" title="三、备注"></a>三、备注</h2><ul>
+<li><p>componentWillReceiveProps、componentWillMount和componentWillUpdate，在一个轮回中可能会被调用多次；而componentDidMount和componentDidUpdate则只会被调用一次；</p>
+</li>
+<li><p>componentWillMount被调用后未必会调用未必会调用componentWillUnmount，而componentDidMount之后肯定会调用。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/12/26/react-v16-3-生命周期/">http://www.hxkuan.com/2018/12/26/react-v16-3-生命周期/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/js/">js</a>
+            
+              <a href="/tags/react/">react</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/11/08/前端布局的几种方式/">
+        <span class="next-text nav-default">前端布局的几种方式</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="react基础-Component生命周期">
+
+
+
+
+  <meta name="keywords" content="编程, 基础, js, react, 前端, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/01/04/react基础-Component生命周期/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> react基础-Component生命周期 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          react基础-Component生命周期
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-04
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#render-模块"><span class="toc-text">render 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mount模块"><span class="toc-text">mount模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update模块"><span class="toc-text">update模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umount模块"><span class="toc-text">umount模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期图解"><span class="toc-text">生命周期图解</span></a>
+    </li></div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Component，作为react所有组件的基类，其重要性毋庸置疑。而想要更好的使用它，无疑需要清晰的了解其生命周期，否则试问你又如何去开发优化自己的组件呢？下面就是我整理的生命周期。<br><a id="more"></a></p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>为了便于记忆，我将其分为4个块（render模块，mount模块，update模块和unmount模块），其中3个模块完全相互独立。</p>
+<h3 id="render-模块"><a href="#render-模块" class="headerlink" title="render 模块"></a>render 模块</h3><blockquote>
+<p>如果说component中有一个生命周期是最重要的，那无疑是<code>render()</code>。之所以将一个方法称为一个模块，是因为一方面它的重要性，另一方面它于mount模块和update模块都有千丝万缕的关系，实在不好将它归于update或者mount模块中。至于其本身的作用，估计也不需要过多的解释了。</p>
+</blockquote>
+<h3 id="mount模块"><a href="#mount模块" class="headerlink" title="mount模块"></a>mount模块</h3><p>mount模块有三个方法，依次为：</p>
+<ul>
+<li>constructor(props)</li>
+<li>void componentWillMount()</li>
+<li>void componentDidMount()</li>
+</ul>
+<blockquote>
+<p>这三个方法只会被调用1次；后两个方法，一个在render之前被调用，一个则在render之后被调用，总的来说这个模块是一个组件初始化到显示的过程。</p>
+<p>需要注意的点是componentWillMount虽然在render之前被调用，但并不是在调用完compotentWillMount后调用render，所以即使在compotentWillMount加上async-await也无法做到于render同步。 </p>
+</blockquote>
+<h3 id="update模块"><a href="#update模块" class="headerlink" title="update模块"></a>update模块</h3><p>update模块有4个方法，依次为：</p>
+<ul>
+<li>void componentWillReceiveProps(nextProps)</li>
+<li>boolean shouldComponentUpdate(nextProps, nextState)</li>
+<li>void componentWillUpdate()</li>
+<li>void componentDidUpdate()</li>
+</ul>
+<blockquote>
+<p>先说说componentWillReceiveProps。props是父组件传递给子组件的，父组件发生render的时候子组件就会调用componentWillReceiveProps（不管props有没有更新，也不管父子组件之间有没有数据交换）之后在调用shouldComponentUpdate。所以如果有需要使用props初始化state值时，最正确的做法是同时在constructor中初始化的同时在componentWillReceiveProps中setState。</p>
+<p>shouldComponentUpdate方法是在组件mount之后，每次props或者state改变时会被调，该函数用来判断是否需要重新渲染组件。</p>
+<p>componentWillUpdate/componentDidUpdate，更新界面前后被调用。这两个周期函数会在shouldComponentUpdate返回true，或者使用this.forceUpdate()时启用。</p>
+</blockquote>
+<h3 id="umount模块"><a href="#umount模块" class="headerlink" title="umount模块"></a>umount模块</h3><p>unmount模块只有两个方法，依次为：</p>
+<ul>
+<li>void componentWillUnmount()</li>
+</ul>
+<blockquote>
+<p>这2个方法也只会被调用一次。一般在componentWillUnmount中注册事件，而在componentDidMount里面注册的事件需要在这里删除</p>
+<p>注意：调用componentWillUnmount的时候，虽然整个组件是正常运行状态，但由于非同步调用，所以其实不建议在这里使用操作本组件的方法，正确的做法是先在运行状态上面操作完成后unmount组件。</p>
+</blockquote>
+<h2 id="生命周期图解"><a href="#生命周期图解" class="headerlink" title="生命周期图解"></a>生命周期图解</h2><p><img src="/images/react_lifecycle.png" alt="image"></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/01/04/react基础-Component生命周期/">http://www.hxkuan.com/2018/01/04/react基础-Component生命周期/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/js/">js</a>
+            
+              <a href="/tags/react/">react</a>
+            
+              <a href="/tags/前端/">前端</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/03/06/React-Angular和Vue如何选择/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">React,Angular和Vue如何选择</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/11/23/Nginx随记/">
+        <span class="next-text nav-default"> Nginx随记</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

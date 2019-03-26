@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="JavaScript基础-面向对象设计">
+
+
+
+
+  <meta name="keywords" content="编程, 基础, js, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/06/06/JavaScript基础-面向对象设计/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> JavaScript基础-面向对象设计 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          JavaScript基础-面向对象设计
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-06
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建对象"><span class="toc-text">创建对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数模型"><span class="toc-text">构造函数模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型模型"><span class="toc-text">原型模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#混合模型（构造函数模型-原型模式）"><span class="toc-text">混合模型（构造函数模型-原型模式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#other"><span class="toc-text">other</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#普通继承"><span class="toc-text">普通继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构建函数继承"><span class="toc-text">构建函数继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型继承"><span class="toc-text">原型继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组合继承"><span class="toc-text">组合继承</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>这边主要的是ES5及之前版本的js面向对象设计。由于工作的原因，我这边上手就是ES6，正因为这样在看面试题的时候才发现原来对于之前的js封装这一块的缺失。不管怎么说，缺什么，补什么，记不牢，先笔记。</p>
+<blockquote>
+<p>首先需要注意的是，之后的js或者JavaScript都特指ES5及之前版本。</p>
+</blockquote>
+<p>其实js算不上严格的面向对象(Object-Oriented，OO)语言，因为它有对象但并没有严格意义上的class，同样的没有class也就谈不上extends，所以下面的其实更应该说是”伪类”，”伪继承”。下面具体看看这方面的梳理吧。<br><a id="more"></a></p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p>对于js而言<code>{}</code>就是一个对象，当然<code>new Object()</code>也是一个对象。《JavaScript高级编程》中提到了多种创建对象的模式，个人习惯使用其中3种——<code>构造函数模型</code>，<code>原型模式</code>，<code>混合模型</code></p>
+<blockquote>
+<p>从下文也可以看出来，js中将这些【创建对象的模式】当成了class，不过就实际情况来说，【混合模式】已经很像java中的class了</p>
+</blockquote>
+<ul>
+<li><h4 id="构造函数模型"><a href="#构造函数模型" class="headerlink" title="构造函数模型"></a>构造函数模型</h4><p>  定义方式：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person (name,..)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    ..</span><br><span class="line">    this.call = function ()&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  注意点：</p>
+<ol>
+<li>本质上是个函数。</li>
+<li>使用new创建对象，函数名首字母大写，直接将属性赋给this，没有return。</li>
+<li>缺点：每个实例都将重新创建所有的属性。</li>
+</ol>
+</li>
+<li><h4 id="原型模型"><a href="#原型模型" class="headerlink" title="原型模型"></a>原型模型</h4><p>  prototype中的属性，定义方式：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Person ()&#123;&#125;</span><br><span class="line">Person.prototype.name = &quot;name&quot;;</span><br><span class="line">Person.prototype.call = function ()&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>  注意点：<br>  1.【原型模型】其实是包含【构造函数模型】;</p>
+<ol start="2">
+<li>而且prototype的属性对立于对象实例，也就是不能通过实例改变的值。</li>
+<li>调用对象属性时，会先查看是否有【实例属性】，没有时再查看【原型属性】。</li>
+<li>当通过实例”改变”某个【模型属性】时，实际上是创建了一个同名【实例属性】覆盖了。但在改变对象属性中的属性时，就会因为共享而导致错误。</li>
+</ol>
+</li>
+<li><h4 id="混合模型（构造函数模型-原型模式）"><a href="#混合模型（构造函数模型-原型模式）" class="headerlink" title="混合模型（构造函数模型-原型模式）"></a>混合模型（构造函数模型-原型模式）</h4><p>由于【构造函数模型】-【原型模式】优缺互补，一般实际使用都是【混合模式】——使用【构造函数模型】创建实例私有属性，使用【原型模式】创建共享属性</p>
+</li>
+<li><h4 id="other"><a href="#other" class="headerlink" title="other"></a>other</h4><ol>
+<li>使用实例的<code>hasOwnProperty(key:string)</code>判断属性是否是实例属性。</li>
+<li><code>[key:string] in object</code>object实例是否包含属性key。</li>
+<li><code>for-in</code>遍历对象属性。</li>
+</ol>
+</li>
+</ul>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>如同上面所说的，js没有严格意义上的继承。</p>
+<ul>
+<li><h4 id="普通继承"><a href="#普通继承" class="headerlink" title="普通继承"></a>普通继承</h4><p>  与其说是继承，还不如说是合并两个对象生产新对象。而且继承是class的事，因为是”伪”的，所以这就当是吧。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var p = Object.create(&#123;..&#125;,&#123;..&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="构建函数继承"><a href="#构建函数继承" class="headerlink" title="构建函数继承"></a>构建函数继承</h4><p>  具体的原理其实就是用call调用被继承函数，因为传入的this指向当前函数，也就是说所有的属性都绑定在了当前构造函数上。但这样也就只能继承【实例属性】</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Son (..)&#123;</span><br><span class="line">    Person.call(this,..);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h4><p>  只能继承【原型属性】</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Son.prototype = Object.create(Person.protptype); //或者 Son.prototype = new Person();</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>  组合【构建函数继承】和【原型继承】，如此技能继承【实例属性】，又能使用【原型属性】。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/06/06/JavaScript基础-面向对象设计/">http://www.hxkuan.com/2018/06/06/JavaScript基础-面向对象设计/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/编程/">编程</a>
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/js/">js</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/06/11/Mongodb基础-特点/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Mongodb基础-特点</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/05/20/css基础摘记-选择器/">
+        <span class="next-text nav-default">CSS基础摘记-选择器</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

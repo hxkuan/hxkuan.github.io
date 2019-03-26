@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="react-native 基础-常用css篇">
+
+
+
+
+  <meta name="keywords" content="基础, js, react, react native, HX-Fighting">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="HX-Fighting">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0">
+
+
+
+<link rel="canonical" href="http://www.hxkuan.com/2018/04/25/react-native-基础-常用css篇/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0">
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> react-native 基础-常用css篇 - HX-Fighting </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">HX-Fighting</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">HX-Fighting</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          react-native 基础-常用css篇
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-25
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Native常用CSS"><span class="toc-text">React Native常用CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#组件样式"><span class="toc-text">组件样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#View部分"><span class="toc-text">View部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Text部分"><span class="toc-text">Text部分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#布局样式"><span class="toc-text">布局样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Layoyt样式"><span class="toc-text">Layoyt样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FlexBox样式"><span class="toc-text">FlexBox样式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效果样式"><span class="toc-text">效果样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Transform样式"><span class="toc-text">Transform样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shadow样式"><span class="toc-text">Shadow样式</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>RN的样式是CSS的一个子集，为此整理一份常用的RN CSS样式，以此作为备忘录。<br><a id="more"></a></p>
+<h2 id="React-Native常用CSS"><a href="#React-Native常用CSS" class="headerlink" title="React Native常用CSS"></a>React Native常用CSS</h2><p>根据官网分类，目前可分为：</p>
+<ul>
+<li>组件样式</li>
+<li>布局样式<ol>
+<li>Layout style</li>
+<li>Flexbox style</li>
+</ol>
+</li>
+<li>效果样式<ol>
+<li>Transform style</li>
+<li>Shadow style</li>
+</ol>
+</li>
+</ul>
+<h3 id="组件样式"><a href="#组件样式" class="headerlink" title="组件样式"></a>组件样式</h3><h4 id="View部分"><a href="#View部分" class="headerlink" title="View部分"></a>View部分</h4><p>borderColor, borderTopColor/.., </p>
+<p>borderRadius, borderTopLeftRadius/.., </p>
+<p>borderStyle[‘solid’,’dotted’,’dashed’],</p>
+<p>borderWidth, borderTopWidth/..,</p>
+<p>opacity, backgroundColor, </p>
+<p>backfaceVisibility[‘visible’,’hidden’], overflow[‘visible’,’hidden’]</p>
+<h4 id="Text部分"><a href="#Text部分" class="headerlink" title="Text部分"></a>Text部分</h4><p>color, fontFamily, fontSize, fontStyle, fontWeight[‘normal’,’bold’],</p>
+<p>lineHeight, letterSpacing, textAlign[‘auto’,’left’,’right’,’center’,’justify’],</p>
+<p>textShadowColor, textShadowOffset, textShadowRadius,</p>
+<p>textDecorationStyle, textDecorationLine, textDecorationColor,</p>
+<h3 id="布局样式"><a href="#布局样式" class="headerlink" title="布局样式"></a>布局样式</h3><h4 id="Layoyt样式"><a href="#Layoyt样式" class="headerlink" title="Layoyt样式"></a>Layoyt样式</h4><p>width, height,</p>
+<p>margin, marginTop/.., marginHorizontal/marginVertical,</p>
+<p>padding, paddingTop/.., paddingHorizontal/paddingVertical,</p>
+<p>position[‘absolute’,’relative’], top/right/bottom/left,</p>
+<h4 id="FlexBox样式"><a href="#FlexBox样式" class="headerlink" title="FlexBox样式"></a>FlexBox样式</h4><p>flex, flexDirection[‘row’,’column’], flexWrap[‘wrap’,’nowrap’],</p>
+<p>alignSelf[‘auto’,’flex-start’,’flex-end’,’center’,’stretch’],<br>alignItems[‘flex-start’,’flex-end’,’center’,’strench’],<br>jusityContent[‘flex-start’,’flex-end’,’center’,’space-between’,’space-around’]</p>
+<h3 id="效果样式"><a href="#效果样式" class="headerlink" title="效果样式"></a>效果样式</h3><h4 id="Transform样式"><a href="#Transform样式" class="headerlink" title="Transform样式"></a>Transform样式</h4><p>transform [{perspective: number}, {rotate: string}, {rotateX: string}, {rotateY: string}, {rotateZ: string}, {scale: number}, {scaleX: number}, {scaleY: number}, {translateX: number}, {translateY: number}, {skewX: string}, {skewY: string}]</p>
+<h4 id="Shadow样式"><a href="#Shadow样式" class="headerlink" title="Shadow样式"></a>Shadow样式</h4><p>这方面，android其实并不支持Shadow效果，但通过elevation可以模拟出一定的效果。<br><em>(IOS)</em><br>shadowColor, shadowOffset {width: number, height: number}, shadowOpacity, shadowRadius<br><em>(ANDROID)</em><br>elevation<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">elevation</span>: 4,</span><br><span class="line"><span class="selector-tag">zIndex</span>: __<span class="selector-tag">IOS__</span> ? 1 : 0</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://www.hxkuan.com">hxkuan</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://www.hxkuan.com/2018/04/25/react-native-基础-常用css篇/">http://www.hxkuan.com/2018/04/25/react-native-基础-常用css篇/</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/基础/">基础</a>
+            
+              <a href="/tags/js/">js</a>
+            
+              <a href="/tags/react/">react</a>
+            
+              <a href="/tags/react-native/">react native</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/08/koa源代码笔记/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Koa(v2.5.0)源代码阅读笔记</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/03/06/React-Angular和Vue如何选择/">
+        <span class="next-text nav-default">React,Angular和Vue如何选择</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright" style="margin-top:64px">
+  <span class="copyright-year">
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">hxkuan</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>
